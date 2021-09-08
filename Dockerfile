@@ -21,6 +21,7 @@ WORKDIR /wheels
 RUN pip install -U pip && \
     pip wheel flexget && \
     pip wheel python-telegram-bot==12.8 && \
+    pip wheel chardet && \
     pip wheel baidu-aip && \
     pip wheel pillow && \
     pip wheel pandas && \
@@ -54,6 +55,7 @@ RUN pip install -U pip && \
                 -f /wheels \
                 flexget \
                 python-telegram-bot==12.8 \
+                chardet \
                 baidu-aip \
                 pillow \
                 pandas \
