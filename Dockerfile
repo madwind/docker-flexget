@@ -2,8 +2,6 @@ FROM docker.io/python:3-alpine
 ENV PYTHONUNBUFFERED 1
 
 RUN \
-    #sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    #pip config set global.index-url https://mirrors.aliyun.com/pypi/simple && \
     echo "**** install build packages ****" && \
     apk add --no-cache --upgrade \
         build-base \
@@ -37,8 +35,6 @@ LABEL maintainer="madwind.cn@gmail.com" \
 ENV PYTHONUNBUFFERED 1
 
 RUN \
-    #sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories && \
-    #pip config set global.index-url https://mirrors.aliyun.com/pypi/simple && \
     echo "**** install runtime packages ****" && \
     apk add --no-cache \
         shadow \
