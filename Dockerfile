@@ -1,4 +1,4 @@
-FROM docker.io/python:3-alpine
+FROM docker.io/python:3.9-alpine
 ENV PYTHONUNBUFFERED 1
 
 RUN \
@@ -15,7 +15,6 @@ RUN \
         cargo
 
 WORKDIR /wheels
-
 RUN pip install -U pip && \
     pip wheel flexget && \
     pip wheel python-telegram-bot==12.8 && \
@@ -29,7 +28,12 @@ RUN pip install -U pip && \
     pip wheel pyppeteer && \
     pip wheel pyppeteer_stealth
 
-FROM docker.io/python:3-alpine
+WORKDIR /flexget-ui-v2
+RUN wget https://github.com/Flexget/webui/releases/latest/download/dist.zip && \
+    unzip dist.zip && \
+    rm dist.zip
+
+FROM docker.io/python:3.9-alpine
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
 ENV PYTHONUNBUFFERED 1
@@ -44,6 +48,7 @@ RUN \
     rm -rf /var/cache/apk/*
 
 COPY --from=0 /wheels /wheels
+COPY --from=0 /flexget-ui-v2 /usr/local/lib/python3.9/site-packages/flexget/ui/v2/
 
 RUN pip install -U pip && \
     pip install --no-cache-dir \
