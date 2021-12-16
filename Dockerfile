@@ -1,18 +1,10 @@
 FROM python:slim
 ENV PYTHONUNBUFFERED 1
 
-#RUN \
-#    echo "**** install build packages ****" && \
-#    apk add --no-cache --upgrade \
-#        build-base \
-#        libffi-dev \
-#        openssl-dev \
-#        zlib-dev \
-#        jpeg-dev \
-#        freetype-dev \
-#        libpng-dev \
-#        rust \
-#        cargo
+RUN \
+    echo "**** install build packages ****" && \
+    apt-get update && \
+    apt-get install -y gcc
 
 WORKDIR /wheels
 RUN pip install -U pip && \
