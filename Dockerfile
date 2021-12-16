@@ -40,7 +40,7 @@ COPY root/ /
 
 RUN \
     echo "**** install runtime packages ****" && \
-    apt-get update &&
+    apt-get update && \
     apt-get install -y --no-install-recommends \
         chromium \
         ca-certificates && \
