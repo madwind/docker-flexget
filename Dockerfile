@@ -27,7 +27,6 @@ LABEL maintainer="madwind.cn@gmail.com" \
 ENV PYTHONUNBUFFERED 1
 
 COPY --from=0 /wheels /wheels
-ADD link_chromium .
 COPY root/ /
 
 RUN \
