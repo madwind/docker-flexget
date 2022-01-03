@@ -50,6 +50,7 @@ RUN \
                 pyppeteer_stealth && \
     pyppeteer-install && \
     echo "**** create flexget user and make our folders ****" && \
+    mkdir /home/flexget && \
     groupmod -g 1000 users && \
     useradd -u 911 -U -d /home/flexget -s /bin/sh flexget && \
     usermod -G users flexget && \
