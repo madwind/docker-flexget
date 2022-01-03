@@ -33,9 +33,7 @@ COPY root/ /
 RUN \
     echo "**** install runtime packages ****" && \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
-        chromium \
-        ca-certificates && \
+    apt-get install -y --no-install-recommends ca-certificates && \
     pip install -U pip && \
     pip install --no-cache-dir \
                 --no-index \
@@ -51,9 +49,8 @@ RUN \
                 python-Levenshtein \
                 pyppeteer \
                 pyppeteer_stealth && \
-    echo "**** create abc user and make our folders ****" && \
-    python link_chromium && \
-    rm link_chromium && \
+    pyppeteer-install && \
+    echo "**** create flexget user and make our folders ****" && \
     groupmod -g 1000 users && \
     useradd -u 911 -U -d /home/flexget -s /bin/sh flexget && \
     usermod -G users flexget && \
