@@ -9,6 +9,7 @@ RUN \
 WORKDIR /wheels
 RUN pip install -U pip && \
     pip wheel flexget && \
+    pip wheel 'transmission-rpc>=3.0.0,<4.0.0' && \
     pip wheel python-telegram-bot==12.8 && \
     pip wheel chardet && \
     pip wheel baidu-aip && \
@@ -38,6 +39,7 @@ RUN \
                 --no-index \
                 -f /wheels \
                 flexget \
+                'transmission-rpc>=3.0.0,<4.0.0' \
                 python-telegram-bot==12.8 \
                 chardet \
                 baidu-aip \
