@@ -1,4 +1,4 @@
-FROM python:slim
+FROM python
 ENV PYTHONUNBUFFERED 1
 
 RUN \
@@ -22,7 +22,7 @@ RUN pip install -U pip && \
     pip wheel pyppeteer_stealth
 
 
-FROM python:slim
+FROM python
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
 ENV PYTHONUNBUFFERED 1
