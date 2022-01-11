@@ -1,10 +1,10 @@
-FROM playwright/chromium
+FROM python
 ENV PYTHONUNBUFFERED 1
 
 RUN \
     echo "**** install build packages ****" && \
-    sudo apt-get update && \
-    sudo apt-get install -y gcc python3 python3-pip
+    apt-get update && \
+    apt-get install -y gcc
 
 WORKDIR /wheels
 RUN pip install -U pip && \
@@ -18,11 +18,11 @@ RUN pip install -U pip && \
     pip wheel matplotlib && \
     pip wheel fuzzywuzzy && \
     pip wheel python-Levenshtein && \
-    pip wheel playwright && \
-    pip wheel cf-clearance
+    pip wheel pyppeteer && \
+    pip wheel pyppeteer_stealth
 
 
-FROM playwright/chromium
+FROM python
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
 ENV PYTHONUNBUFFERED 1
@@ -32,22 +32,22 @@ COPY root/ /
 
 RUN \
     echo "**** install runtime packages ****" && \
-     sudo apt-get update && \
-     sudo apt-get install -y --no-install-recommends \
-                    ca-certificates  python3 python3-pip &&\
-                 #   libx11-xcb1 \
-                 #   libxcomposite1 \
-                 #   libxcursor1 \
-                 #   libxdamage1 \
-                 #   libxi6 \
-                 #   libxtst6 \
-                 #   libnss3 \
-                 #   libcups2 \
-                 #   libxrandr2 \
-                 #   libasound2 \
-                 #   libatk1.0-0 \
-                 #   libatk-bridge2.0-0 \
-                 #   libgtk-3-0 && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+                    ca-certificates \
+                    libx11-xcb1 \
+                    libxcomposite1 \
+                    libxcursor1 \
+                    libxdamage1 \
+                    libxi6 \
+                    libxtst6 \
+                    libnss3 \
+                    libcups2 \
+                    libxrandr2 \
+                    libasound2 \
+                    libatk1.0-0 \
+                    libatk-bridge2.0-0 \
+                    libgtk-3-0 && \
     pip install -U pip && \
     pip install --no-cache-dir \
                 --no-index \
@@ -62,16 +62,15 @@ RUN \
                 matplotlib \
                 fuzzywuzzy \
                 python-Levenshtein \
-                playwright \
-                cf-clearance && \
+                pyppeteer \
+                pyppeteer_stealth && \
     echo "**** create flexget user and make our folders ****" && \
     mkdir /home/flexget && \
     groupmod -g 1000 users && \
     useradd -u 911 -U -d /home/flexget -s /bin/sh flexget && \
     usermod -G users flexget && \
     chown -R flexget:flexget /home/flexget && \
-    su flexget -c "playwright install chromium" && \
-    playwright install-deps chromium && \
+    su flexget -c "pyppeteer-install" && \
     chmod +x /usr/bin/entrypoint.sh && \
     rm -rf /wheels \
            /var/lib/apt/lists/*
