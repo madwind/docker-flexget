@@ -70,7 +70,8 @@ RUN \
     useradd -u 911 -U -d /home/flexget -s /bin/sh flexget && \
     usermod -G users flexget && \
     chown -R flexget:flexget /home/flexget && \
-    su flexget -c "playwright install chromium && playwright install-deps chromium" && \
+    su flexget -c "playwright install chromium" && \
+    playwright install-deps chromium && \
     chmod +x /usr/bin/entrypoint.sh && \
     rm -rf /wheels \
            /var/lib/apt/lists/*
