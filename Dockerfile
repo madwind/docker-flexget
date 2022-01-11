@@ -1,4 +1,4 @@
-FROM python
+FROM python:slim
 ENV PYTHONUNBUFFERED 1
 
 RUN \
@@ -18,11 +18,11 @@ RUN pip install -U pip && \
     pip wheel matplotlib && \
     pip wheel fuzzywuzzy && \
     pip wheel python-Levenshtein && \
-    pip wheel pyppeteer && \
-    pip wheel pyppeteer_stealth
+    pip wheel playwright && \
+    pip wheel cf_clearance
 
 
-FROM python
+FROM python:slim
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
 ENV PYTHONUNBUFFERED 1
@@ -34,20 +34,20 @@ RUN \
     echo "**** install runtime packages ****" && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-                    ca-certificates \
-                    libx11-xcb1 \
-                    libxcomposite1 \
-                    libxcursor1 \
-                    libxdamage1 \
-                    libxi6 \
-                    libxtst6 \
-                    libnss3 \
-                    libcups2 \
-                    libxrandr2 \
-                    libasound2 \
-                    libatk1.0-0 \
-                    libatk-bridge2.0-0 \
-                    libgtk-3-0 && \
+                    ca-certificates &&\
+                 #   libx11-xcb1 \
+                 #   libxcomposite1 \
+                 #   libxcursor1 \
+                 #   libxdamage1 \
+                 #   libxi6 \
+                 #   libxtst6 \
+                 #   libnss3 \
+                 #   libcups2 \
+                 #   libxrandr2 \
+                 #   libasound2 \
+                 #   libatk1.0-0 \
+                 #   libatk-bridge2.0-0 \
+                 #   libgtk-3-0 && \
     pip install -U pip && \
     pip install --no-cache-dir \
                 --no-index \
@@ -62,8 +62,8 @@ RUN \
                 matplotlib \
                 fuzzywuzzy \
                 python-Levenshtein \
-                pyppeteer \
-                pyppeteer_stealth && \
+                playwright \
+                cf_clearance && \
     echo "**** create flexget user and make our folders ****" && \
     mkdir /home/flexget && \
     groupmod -g 1000 users && \
