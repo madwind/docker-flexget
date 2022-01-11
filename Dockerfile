@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED 1
 RUN \
     echo "**** install build packages ****" && \
     apt-get update && \
-    apt-get install -y gcc python
+    apt-get install -y gcc python python-pip
 
 WORKDIR /wheels
 RUN pip install -U pip && \
@@ -34,7 +34,7 @@ RUN \
     echo "**** install runtime packages ****" && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-                    ca-certificates python &&\
+                    ca-certificates  python python-pip &&\
                  #   libx11-xcb1 \
                  #   libxcomposite1 \
                  #   libxcursor1 \
@@ -70,7 +70,7 @@ RUN \
     useradd -u 911 -U -d /home/flexget -s /bin/sh flexget && \
     usermod -G users flexget && \
     chown -R flexget:flexget /home/flexget && \
-    su flexget -c "playwright install chromium && playwright install-deps" && \
+    su flexget -c "playwright install chromium && playwright install-deps chromium" && \
     chmod +x /usr/bin/entrypoint.sh && \
     rm -rf /wheels \
            /var/lib/apt/lists/*
