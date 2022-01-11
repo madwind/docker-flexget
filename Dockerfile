@@ -19,7 +19,7 @@ RUN pip install -U pip && \
     pip wheel fuzzywuzzy && \
     pip wheel python-Levenshtein && \
     pip wheel playwright && \
-    pip wheel cf_clearance
+    pip wheel cf-clearance
 
 
 FROM python:slim
@@ -63,7 +63,7 @@ RUN \
                 fuzzywuzzy \
                 python-Levenshtein \
                 playwright \
-                cf_clearance && \
+                cf-clearance && \
     echo "**** create flexget user and make our folders ****" && \
     mkdir /home/flexget && \
     groupmod -g 1000 users && \
