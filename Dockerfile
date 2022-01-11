@@ -1,10 +1,10 @@
-FROM python:3.9-slim
+FROM ubuntu
 ENV PYTHONUNBUFFERED 1
 
 RUN \
     echo "**** install build packages ****" && \
     apt-get update && \
-    apt-get install -y gcc
+    apt-get install -y gcc python
 
 WORKDIR /wheels
 RUN pip install -U pip && \
@@ -22,7 +22,7 @@ RUN pip install -U pip && \
     pip wheel cf-clearance
 
 
-FROM python:3.9-slim
+FROM ubuntu
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
 ENV PYTHONUNBUFFERED 1
@@ -34,7 +34,7 @@ RUN \
     echo "**** install runtime packages ****" && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-                    ca-certificates &&\
+                    ca-certificates python &&\
                  #   libx11-xcb1 \
                  #   libxcomposite1 \
                  #   libxcursor1 \
@@ -70,7 +70,7 @@ RUN \
     useradd -u 911 -U -d /home/flexget -s /bin/sh flexget && \
     usermod -G users flexget && \
     chown -R flexget:flexget /home/flexget && \
-    su flexget -c "playwright install chromium" && \
+    su flexget -c "playwright install chromium && playwright install-deps" && \
     chmod +x /usr/bin/entrypoint.sh && \
     rm -rf /wheels \
            /var/lib/apt/lists/*
