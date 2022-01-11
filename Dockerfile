@@ -1,4 +1,4 @@
-FROM python:slim
+FROM python:3.9-slim
 ENV PYTHONUNBUFFERED 1
 
 RUN \
@@ -22,7 +22,7 @@ RUN pip install -U pip && \
     pip wheel cf-clearance
 
 
-FROM python:slim
+FROM python:3.9-slim
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
 ENV PYTHONUNBUFFERED 1
