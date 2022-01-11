@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED 1
 RUN \
     echo "**** install build packages ****" && \
     apt-get update && \
-    apt-get install -y gcc python python-pip
+    apt-get install -y gcc python3 python3-pip
 
 WORKDIR /wheels
 RUN pip install -U pip && \
@@ -34,7 +34,7 @@ RUN \
     echo "**** install runtime packages ****" && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-                    ca-certificates  python python-pip &&\
+                    ca-certificates  python3 python3-pip &&\
                  #   libx11-xcb1 \
                  #   libxcomposite1 \
                  #   libxcursor1 \
