@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM playwright/chromium
 ENV PYTHONUNBUFFERED 1
 
 RUN \
@@ -22,7 +22,7 @@ RUN pip install -U pip && \
     pip wheel cf-clearance
 
 
-FROM ubuntu
+FROM playwright/chromium
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
 ENV PYTHONUNBUFFERED 1
