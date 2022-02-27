@@ -19,7 +19,7 @@ if [ -f "/config/config.yml" ]; then
   echo "Using existing config.yml"
 else
   echo "New config.yml from template"
-  cp /defaults/config.example.yml /config/config.yml
+  cp /root/defaults/config.example.yml /config/config.yml
 fi
 
 # set FG_WEBUI_PASSWD
