@@ -1,0 +1,11 @@
+python-telegram-bot == 12.8
+chardet
+baidu-aip
+pillow
+pandas
+matplotlib
+fuzzywuzzy
+python-Levenshtein
+transmission-rpc >= 3.0.0, < 4.0.0
+deluge-client
+flexget
