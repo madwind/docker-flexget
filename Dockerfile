@@ -1,4 +1,4 @@
-FROM python:alpine#
+FROM python:alpine
 COPY requirements.txt /tmp
 RUN set -eu; \
 		apk add \
