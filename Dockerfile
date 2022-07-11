@@ -47,7 +47,7 @@ RUN \
                 pandas \
                 matplotlib \
                 fuzzywuzzy \
-                python-Levenshtein && \
+                python-Levenshtein \
                 colorama && \
     echo "**** create flexget user and make our folders ****" && \
     mkdir /home/flexget && \
