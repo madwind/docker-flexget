@@ -18,8 +18,8 @@ RUN pip install -U pip && \
     pip wheel pandas && \
     pip wheel matplotlib && \
     pip wheel fuzzywuzzy && \
-    pip wheel python-Levenshtein
-
+    pip wheel python-Levenshtein && \
+    pip wheel colorama
 FROM python
 LABEL maintainer="madwind.cn@gmail.com" \
       org.label-schema.name="flexget"
@@ -48,6 +48,7 @@ RUN \
                 matplotlib \
                 fuzzywuzzy \
                 python-Levenshtein && \
+                colorama && \
     echo "**** create flexget user and make our folders ****" && \
     mkdir /home/flexget && \
     groupmod -g 1000 users && \
