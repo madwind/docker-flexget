@@ -9,7 +9,7 @@ RUN \
 WORKDIR /wheels
 RUN pip install -U pip && \
     pip wheel flexget && \
-    pip wheel transmission-rpc && \
+    pip wheel transmission-rpc==4.3.1 && \
     pip wheel deluge-client && \
     pip wheel python-telegram-bot==12.8 && \
     pip wheel chardet && \
@@ -37,7 +37,7 @@ RUN \
                 --no-index \
                 -f /wheels \
                 flexget \
-                transmission-rpc \
+                transmission-rpc==4.3.1 \
                 deluge-client \
                 python-telegram-bot==12.8 \
                 chardet \
