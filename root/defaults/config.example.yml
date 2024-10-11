@@ -6,4 +6,3 @@ tasks:
   example-task:
     rss: http://example.com/feed.xml
     download: /downloads
-      

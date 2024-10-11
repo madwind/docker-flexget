@@ -1,6 +1,4 @@
 #! /bin/sh
-#
-# entrypoint.sh
 
 PUID=${PUID:-911}
 PGID=${PGID:-911}
