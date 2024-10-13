@@ -1,5 +1,5 @@
 # Docker-flexget
 
-3.11.23 (2024-10-13)
+3.11.23 (2024-10-14)
 
 To build the FlexGet Docker image, run `docker buildx f`.
