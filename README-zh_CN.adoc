@@ -78,6 +78,8 @@ services:
 
 === 使用 GitHub Actions 构建
 
-. https://github.com/{repo}/fork[分叉]存储库。
-. 在 repository settings -> secrets and variables -> actions -> repository secrets，输入 DOCKERHUB_USERNAME 和 DOCKERHUB_TOKEN。
-. git push 到 `main` 分支将自动构建并推送 Docker 映像。
+. https://github.com/{repo}/fork[复刻]存储库。
+. 在 repository settings -> secrets and variables -> actions -> repository secrets，输入 `DOCKERHUB_USERNAME` 和 `DOCKERHUB_TOKEN`。
+. 为你的存储库启用 Actions。因你的存储库在复刻时包含工作流，GitHub 禁止其在复刻上运行。footnote:[Dependabot 同样默认不会在复刻中启用，在
+respository insights -> dependency graph -> dependabot 中启用它。]
+. git push 到 `main` 分支将自动构建并推送 Docker 映像。footnote:[README 和 LICENSE 文件在排除列表中，对它们的更改不会触发构建。]

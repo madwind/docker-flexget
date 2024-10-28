@@ -79,5 +79,8 @@ To build the FlexGet Docker image locally, in the project directory, run:
 === Build with GitHub Actions
 
 . https://github.com/{repo}/fork[Fork] the repository.
-. In repository settings -> secrets and variables -> actions -> repository secrets, enter DOCKERHUB_USERNAME and DOCKERHUB_TOKEN.
-. A git push to the `main` branch will automatically build and push the Docker image.
+. In repository settings -> secrets and variables -> actions -> repository secrets, enter `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
+. Enable Actions on your repository. Because your repository contains workflow files when it is forked, GitHub disables
+them from running on your fork.footnote:[Dependabot is also not enabled on forks by default. Enable it in respository
+insights -> dependency graph -> dependabot.]
+. A git push to the `main` branch will automatically build and push the Docker image.footnote:[README and LICENSE files are in the exclusion list, changes to them will not trigger a build.]

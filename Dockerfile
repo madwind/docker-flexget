@@ -4,6 +4,8 @@ RUN set -eux; \
 	apk add \
 		g++ \
 		libffi-dev \
+        # There are no pendulum wheels provided for python 3.13. Once there is a new release for pendulum, remove cargo.
+        cargo \
 	; \
 	pip install -r /tmp/requirements.txt --root /root-dir --no-warn-script-location; \
 	find /root-dir/usr/local -depth \
