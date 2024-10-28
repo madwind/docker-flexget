@@ -1,0 +1,83 @@
+= docker-flexget
+:idprefix:
+:idseparator: -
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:status:
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+:repo: madwind/docker-flexget
+:image: madwind/flexget
+
+image:https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml/badge.svg[CI,link=https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml]
+image:https://img.shields.io/docker/image-size/{image}?arch=arm64&logo=docker&color=aqua[Docker Image Size,link=https://registry.hub.docker.com/r/{image}]
+image:https://badgen.net/docker/pulls/{image}?icon=docker&color=pink[Downloads,link=https://registry.hub.docker.com/r/{image}]
+
+link:README-zh_CN.adoc[简体中文]
+
+docker-flexget is a Docker image for running https://github.com/madwind/flexget_qbittorrent_mod[flexget_qbittorrent_mod].
+
+== Usage
+
+WARNING: The flexget_qbittorrent_mod plugin is not included in this Docker image.footnote:[To use this plugin, place the files in the plugin project directly in `<path for config files>/plugins`.]
+
+You can choose either of the following two running methods:
+
+=== docker run
+
+[source,console,subs=attributes+]
+$ docker run -d \
+>   --name=<container name> \
+>   -p 3539:3539 \
+>   -v <path for data files>:/downloads \
+>   -v <path for config files>:/config \
+>   -e PUID=<UID for user> \
+>   -e PGID=<GID for user> \
+>   -e TZ=<timezone> \
+>   -e FG_WEBUI_PASSWD=<password> \
+>   -e FG_LOG_LEVEL=<log level>
+>   {image}
+
+=== docker compose
+
+. Create a file called `compose.yaml` and paste the following:
++
+[source,yml,subs=attributes+]
+services:
+  flexget:
+    image: {image}
+    container_name: flexget
+    environment:
+      # The password should be complex enough
+      FG_WEBUI_PASSWD: <password>
+      # Log level
+      FG_LOG_LEVEL: INFO
+      TZ: Asia/Shanghai
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - <path for config files>:/config
+      - <path for data files>:/downloads
+    ports:
+      - "3539:3539"
+. In the same directory as the `compose.yaml` file, run:
+
+ $ docker compose up
+
+== Build the image
+
+=== Local build
+
+To build the FlexGet Docker image locally, in the project directory, run:
+
+ $ docker buildx f
+
+=== Build with GitHub Actions
+
+. https://github.com/{repo}/fork[Fork] the repository.
+. In repository settings -> secrets and variables -> actions -> repository secrets, enter DOCKERHUB_USERNAME and DOCKERHUB_TOKEN.
+. A git push to the `main` branch will automatically build and push the Docker image.

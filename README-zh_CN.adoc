@@ -1,0 +1,83 @@
+= docker-flexget
+:idprefix:
+:idseparator: -
+ifndef::env-github[:icons: font]
+ifdef::env-github[]
+:status:
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+:repo: madwind/docker-flexget
+:image: madwind/flexget
+
+image:https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml/badge.svg[CI,link=https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml]
+image:https://img.shields.io/docker/image-size/{image}?arch=arm64&logo=docker&color=aqua[Docker Image Size,link=https://registry.hub.docker.com/r/{image}]
+image:https://badgen.net/docker/pulls/{image}?icon=docker&color=pink[Downloads,link=https://registry.hub.docker.com/r/{image}]
+
+link:README.adoc[English]
+
+docker-flexget 是用于运行 https://github.com/madwind/flexget_qbittorrent_mod[flexget_qbittorrent_mod] 的 Docker 映像。
+
+== 使用
+
+WARNING: 此 Docker 映像中未包含 flexget_qbittorrent_mod 插件。footnote:[如需使用此插件，将插件项目中的文件直接放置在 `<path for config files>/plugins` 中。]
+
+两种运行方式择一：
+
+=== docker run
+
+[source,console,subs=attributes+]
+$ docker run -d \
+>   --name=<container name> \
+>   -p 3539:3539 \
+>   -v <path for data files>:/downloads \
+>   -v <path for config files>:/config \
+>   -e PUID=<UID for user> \
+>   -e PGID=<GID for user> \
+>   -e TZ=<timezone> \
+>   -e FG_WEBUI_PASSWD=<password> \
+>   -e FG_LOG_LEVEL=<log level>
+>   {image}
+
+=== docker compose
+
+. 创建名为 `compose.yaml` 的文件并粘贴以下内容：
++
+[source,yml,subs=attributes+]
+services:
+  flexget:
+    image: {image}
+    container_name: flexget
+    environment:
+      # 密码应保证复杂度
+      FG_WEBUI_PASSWD: <password>
+      # 日志级别
+      FG_LOG_LEVEL: INFO
+      TZ: Asia/Shanghai
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - <path for config files>:/config
+      - <path for data files>:/downloads
+    ports:
+      - "3539:3539"
+. 在 `compose.yaml` 文件同一目录下，运行：
+
+ $ docker compose up
+
+== 构建映像
+
+=== 本地构建
+
+要在本地构建 FlexGet Docker 映像，在本项目目录中运行：
+
+ $ docker buildx f
+
+=== 使用 GitHub Actions 构建
+
+. https://github.com/{repo}/fork[分叉]存储库。
+. 在 repository settings -> secrets and variables -> actions -> repository secrets，输入 DOCKERHUB_USERNAME 和 DOCKERHUB_TOKEN。
+. git push 到 `main` 分支将自动构建并推送 Docker 映像。
