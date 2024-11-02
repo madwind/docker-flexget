@@ -1,4 +1,4 @@
-FROM python:3.12-alpine
+FROM python:3.13-alpine
 COPY requirements.txt /tmp
 RUN set -eux; \
 	apk add \
@@ -15,7 +15,7 @@ RUN set -eux; \
 	\) -exec rm -rf '{}' +
 COPY root /root-dir
 
-FROM python:3.12-alpine
+FROM python:3.13-alpine
 ENV PYTHONUNBUFFERED=1
 COPY --from=0 /root-dir /
 RUN set -eux; \
