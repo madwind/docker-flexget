@@ -13,9 +13,10 @@ endif::[]
 :repo: madwind/docker-flexget
 :image: madwind/flexget
 
-image:https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml/badge.svg[CI,link=https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml]
-image:https://img.shields.io/docker/image-size/{image}?arch=arm64&logo=docker&color=aqua[Docker Image Size,link=https://registry.hub.docker.com/r/{image}]
+image:https://github.com/{repo}/actions/workflows/build-and-push.yaml/badge.svg[CI,link=https://github.com/{repo}/actions/workflows/build-and-push.yaml]
+image:https://img.shields.io/docker/image-size/{image}?arch=arm64&logo=docker&logoColor=aqua&color=aqua[Docker Image Size,link=https://registry.hub.docker.com/r/{image}]
 image:https://badgen.net/docker/pulls/{image}?icon=docker&color=pink[Downloads,link=https://registry.hub.docker.com/r/{image}]
+image:https://img.shields.io/endpoint?url=https%3A%2F%2Fmogyo.ro%2Fquart-apis%2Ftgmembercount%3Fchat_id%3Dflexget_qbittorrent_mod[Telegram Group,link=https://t.me/flexget_qbittorrent_mod]
 
 link:README.adoc[English]
 
@@ -78,6 +79,8 @@ services:
 
 === 使用 GitHub Actions 构建
 
-. https://github.com/{repo}/fork[分叉]存储库。
-. 在 repository settings -> secrets and variables -> actions -> repository secrets，输入 DOCKERHUB_USERNAME 和 DOCKERHUB_TOKEN。
-. git push 到 `main` 分支将自动构建并推送 Docker 映像。
+. https://github.com/{repo}/fork[复刻]存储库。
+. 在 repository settings -> secrets and variables -> actions -> repository secrets，输入 `DOCKERHUB_USERNAME` 和 `DOCKERHUB_TOKEN`。
+. 为你的存储库启用 Actions。
+因你的存储库在复刻时包含工作流，GitHub 禁止其在复刻上运行。footnote:[Dependabot 同样默认不会在复刻中启用，在 repository insights -> dependency graph -> dependabot 中启用它。]
+. git push 到 `main` 分支将自动构建并推送 Docker 映像。footnote:[README 和 LICENSE 文件在排除列表中，对它们的更改不会触发构建。]

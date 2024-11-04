@@ -13,9 +13,10 @@ endif::[]
 :repo: madwind/docker-flexget
 :image: madwind/flexget
 
-image:https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml/badge.svg[CI,link=https://github.com/{repo}/actions/workflows/build-and-push-flexget-docker-images.yaml]
-image:https://img.shields.io/docker/image-size/{image}?arch=arm64&logo=docker&color=aqua[Docker Image Size,link=https://registry.hub.docker.com/r/{image}]
+image:https://github.com/{repo}/actions/workflows/build-and-push.yaml/badge.svg[CI,link=https://github.com/{repo}/actions/workflows/build-and-push.yaml]
+image:https://img.shields.io/docker/image-size/{image}?arch=arm64&logo=docker&logoColor=aqua&color=aqua[Docker Image Size,link=https://registry.hub.docker.com/r/{image}]
 image:https://badgen.net/docker/pulls/{image}?icon=docker&color=pink[Downloads,link=https://registry.hub.docker.com/r/{image}]
+image:https://img.shields.io/endpoint?url=https%3A%2F%2Fmogyo.ro%2Fquart-apis%2Ftgmembercount%3Fchat_id%3Dflexget_qbittorrent_mod[Telegram Group,link=https://t.me/flexget_qbittorrent_mod]
 
 link:README-zh_CN.adoc[简体中文]
 
@@ -79,5 +80,7 @@ To build the FlexGet Docker image locally, in the project directory, run:
 === Build with GitHub Actions
 
 . https://github.com/{repo}/fork[Fork] the repository.
-. In repository settings -> secrets and variables -> actions -> repository secrets, enter DOCKERHUB_USERNAME and DOCKERHUB_TOKEN.
-. A git push to the `main` branch will automatically build and push the Docker image.
+. In repository settings -> secrets and variables -> actions -> repository secrets, enter `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN`.
+. Enable Actions on your repository.
+Because your repository contains workflow files when it is forked, GitHub disables them from running on your fork.footnote:[Dependabot is also not enabled on forks by default. Enable it in repository insights -> dependency graph -> dependabot.]
+. A git push to the `main` branch will automatically build and push the Docker image.footnote:[README and LICENSE files are in the exclusion list, changes to them will not trigger a build.]
