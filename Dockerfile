@@ -1,10 +1,10 @@
 FROM python:3.12-alpine
 COPY requirements.txt /tmp
-RUN set -eux
+RUN set -eux  && \
     apk add --no-cache --upgrade \
         g++ \
-        libffi-dev
-    pip install -r /tmp/requirements.txt --root /root-dir --no-warn-script-location; \
+        libffi-dev  && \
+    pip install -r /tmp/requirements.txt --root /root-dir --no-warn-script-location && \
     find /root-dir/usr/local -depth \
 	\( \
 		\( -type d -a \( -name test -o -name tests -o -name idle_test \) \) \
@@ -15,15 +15,16 @@ COPY root /root-dir
 FROM python:3.12-alpine
 ENV PYTHONUNBUFFERED=1
 COPY --from=0 /root-dir /
-RUN set -eux
+RUN set -eux  && \
     apk add --no-cache --upgrade \
         ca-certificates \
-        tzdata && \
-        shadow
-    rm -rf /var/cache/apk/*
-    groupmod -g 1000 users;
-    useradd -mUu 911 flexget
-    usermod -G users flexget
+        tzdata \
+        shadow \
+	libstdc++ && \
+    rm -rf /var/cache/apk/*  && \
+    groupmod -g 1000 users && \
+    useradd -mUu 911 flexget && \
+    usermod -G users flexget && \
     chmod +x /usr/bin/entrypoint.sh
 VOLUME /config /downloads
 WORKDIR /config
