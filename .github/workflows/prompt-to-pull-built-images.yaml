@@ -1,0 +1,27 @@
+name: Prompt to pull built images
+on:
+  pull_request_target:
+    types: [ opened ]
+    paths-ignore:
+      - 'README**'
+      - 'LICENSE'
+
+env:
+  REGISTRY_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/flexget
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `To inspect the last successfully built Docker image based on the PR, run:
+            \`\`\`console
+            $ docker pull ${{ env.REGISTRY_IMAGE }}:pr-${{ github.event.number }}
+            \`\`\``
+            })
