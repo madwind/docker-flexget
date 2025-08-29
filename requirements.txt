@@ -5,7 +5,7 @@ pillow==11.0.0
 pandas==2.2.3
 matplotlib==3.10.0
 fuzzywuzzy==0.18.0
-python-levenshtein==0.26.1
+python-levenshtein==0.27.1
 transmission-rpc==7.0.11
 deluge-client==1.10.2
-flexget==3.13.5
+flexget==3.16.15
