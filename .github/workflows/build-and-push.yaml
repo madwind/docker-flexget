@@ -24,7 +24,7 @@ jobs:
       - name:  Get latest flexget version
         id: app_version
         run: |
-          FLEXGET_VERSION=$(curl -s https://pypi.org/pypi/flexget/json | jq -r '.info.version')
+          FLEXGET_VERSION=$(grep '^flexget==' requirements.txt | cut -d '=' -f 3)
           echo "app_version=$FLEXGET_VERSION" >> $GITHUB_OUTPUT
 
       - name: Prepare
