@@ -4,6 +4,10 @@ on:
     branches:
       - 'main'
 
+concurrency:
+  group: build-docker
+  cancel-in-progress: true
+
 env:
   REGISTRY_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/flexget
 
