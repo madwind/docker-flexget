@@ -23,7 +23,7 @@ jobs:
           - linux/arm64
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name:  Get latest flexget version
         id: app_version
