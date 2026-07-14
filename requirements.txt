@@ -2,8 +2,8 @@ python-telegram-bot==22.5
 chardet==5.2.0
 baidu-aip==4.16.13
 pillow==11.3.0
-pandas==2.3.3
-matplotlib==3.10.1
+pandas==2.2.3
+matplotlib==3.10.7
 fuzzywuzzy==0.18.0
 python-levenshtein==0.27.3
 transmission-rpc==7.0.11
