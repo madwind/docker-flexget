@@ -6,4 +6,4 @@ fuzzywuzzy==0.18.0
 python-levenshtein==0.27.3
 transmission-rpc==7.0.11
 deluge-client==1.10.2
-flexget==3.18.20
+flexget==3.19.28
