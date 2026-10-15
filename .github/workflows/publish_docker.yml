@@ -6,6 +6,9 @@ on:
     paths:
       - 'requirements.txt'
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -108,3 +111,24 @@ jobs:
             -t ${{ env.REGISTRY_IMAGE }}:latest \
             -t ${{ env.REGISTRY_IMAGE }}:${{ env.APP_VERSION }} \
             $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+
+  cleanup-artifacts:
+    name: Remove temporary workflow artifacts
+    if: ${{ always() && needs.merge.result != 'skipped' }}
+    needs: [build, merge]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Remove uploaded build artifacts after merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api --paginate "repos/$GH_REPO/actions/runs/$RUN_ID/artifacts?per_page=100" \
+            --jq '.artifacts[].id' | while read -r id; do
+              gh api -X DELETE "repos/$GH_REPO/actions/artifacts/$id"
+            done
