@@ -114,7 +114,7 @@ jobs:
 
   cleanup-artifacts:
     name: Remove temporary workflow artifacts
-    if: ${{ always() && needs.merge.result != 'skipped' }}
+    if: ${{ always() }}
     needs: [build, merge]
     runs-on: ubuntu-latest
     permissions:
